@@ -1,20 +1,22 @@
 # SchedulerProject-dev
-## API 명세
-### Lv1. 일정 CRUD
 
-| 기능       | Method | URL                |
-|------------|--------|--------------------|
-| 일정 등록  | `POST`  | /schedules         |
-| 전체 조회  | `GET`   | /schedules         |
-| 단건 조회  | `GET`    | /schedules/{id}    |
-| 일정 수정  | `PUT`    | /schedules/{id}    |
-| 일정 삭제  | `DELETE` | /schedules/{id}    |
+## Lv1. API & ERD
 
+### API: 일정 CRUD
+
+| 기능    | Method   | URL             |
+|-------|----------|-----------------|
+| 일정 등록 | `POST`   | /schedules      |
+| 전체 조회 | `GET`    | /schedules      |
+| 단건 조회 | `GET`    | /schedules/{id} |
+| 일정 수정 | `PUT`    | /schedules/{id} |
+| 일정 삭제 | `DELETE` | /schedules/{id} |
 
 <details>
 <summary>일정 등록 API</summary>
 
 #### [개요]
+
 - **URL**: `/schedules`
 - **HTTP METHOD**: `POST`
 - **설명**: 일정을 생성하는 API입니다.
@@ -24,11 +26,11 @@
 - `Headers`: 없음
 - `Param`: 없음
 - `Body`:
-    
-    | 키         | 데이터 타입 | 설명        | 필수값 |
-    |------------|--------------|-------------|--------|
-    | `title`     | `String`        | 일정 제목    | Y      |
-    | `username`  | `String`        | 사용자 이름  | Y      |
+
+  | 키         | 데이터 타입 | 설명        | 필수값 |
+      |------------|--------------|-------------|--------|
+  | `title`     | `String`        | 일정 제목    | Y      |
+  | `username`  | `String`        | 사용자 이름  | Y      |
 
 - 예시
     ```json
@@ -37,16 +39,18 @@
       "username": "dilee"
     }
     ```
+
 #### [응답]
+
 - 성공
     - 설명
 
-        | 키               | 타입     | 설명     |
-        | --------------- | ------ | ------ |
-        | `status`        | `int`    | 상태 코드  |
-        | `data.id`       | `Long`   | 일정 ID  |
-        | `data.title`    | `String` | 일정 제목  |
-        | `data.username` | `String` | 사용자 이름 |
+      | 키               | 타입     | 설명     |
+      | --------------- | ------ | ------ |
+      | `status`        | `int`    | 상태 코드  |
+      | `data.id`       | `Long`   | 일정 ID  |
+      | `data.title`    | `String` | 일정 제목  |
+      | `data.username` | `String` | 사용자 이름 |
 
     - 예시
         ```json
@@ -62,18 +66,19 @@
 - 실패
     - 설명
 
-        | 키         | 타입     | 설명     |
-        | --------- | ------ | ------ |
-        | `status`  | `int`    | 상태 코드  |
-        | `message` | `String` | 에러 메시지 |
+      | 키         | 타입     | 설명     |
+      | --------- | ------ | ------ |
+      | `status`  | `int`    | 상태 코드  |
+      | `message` | `String` | 에러 메시지 |
 
-  - 예시
-      ```json
-      {
-        "status": 400,
-        "message": "필수값이 누락되었습니다."
-      }
-      ```
+    - 예시
+        ```json
+        {
+          "status": 400,
+          "message": "필수값이 누락되었습니다."
+        }
+        ```
+
 </details>
 
 
@@ -81,11 +86,13 @@
 <summary>전체 조회 API</summary>
 
 #### [개요]
+
 - **URL**: `/schedules`
 - **HTTP METHOD**: `GET`
 - **설명**: 모든 일정을 조회하는 API입니다.
 
 #### [요청]
+
 - `Headers`: 없음
 - `Param` / `Body`: 없음
 
@@ -93,15 +100,15 @@
 
 - 성공
     - 설명
-        
-        | 키                 | 타입     | 설명     |
-        | ----------------- | ------ | ------ |
-        | `status`          | `int`    | 상태 코드  |
-        | `data[].id`       | `Long`   | 일정 ID  |
-        | `data[].title`    | `String` | 일정 제목  |
-        | `data[].username` | `String` | 사용자 이름 |
 
-    - 예시 
+      | 키                 | 타입     | 설명     |
+      | ----------------- | ------ | ------ |
+      | `status`          | `int`    | 상태 코드  |
+      | `data[].id`       | `Long`   | 일정 ID  |
+      | `data[].title`    | `String` | 일정 제목  |
+      | `data[].username` | `String` | 사용자 이름 |
+
+    - 예시
         ```json
         {
           "status": 200,
@@ -121,20 +128,21 @@
         ```
 
 - 실패
-  - 설명
-    
-    | 키         | 타입     | 설명     |
-    | --------- | ------ | ------ |
-    | `status`  | int    | 상태 코드  |
-    | `message` | String | 에러 메시지 |
+    - 설명
 
-  - 예시
-    ```json
-      {
-      "status": 500,
-      "message": "서버 에러가 발생했습니다."
-      }
-    ```
+      | 키         | 타입     | 설명     |
+      | --------- | ------ | ------ |
+      | `status`  | int    | 상태 코드  |
+      | `message` | String | 에러 메시지 |
+
+    - 예시
+      ```json
+        {
+        "status": 500,
+        "message": "서버 에러가 발생했습니다."
+        }
+      ```
+
 </details>
 
 
@@ -142,11 +150,13 @@
 <summary>단건 조회 API</summary>
 
 #### [개요]
+
 - **URL**: `/schedules/{id}`
 - **HTTP METHOD**: `GET`
 - **설명**: 특정 ID의 일정을 조회하는 API입니다.
 
 #### [요청]
+
 - `Headers`: 없음
 - `Param`:
     - 설명
@@ -166,13 +176,13 @@
 
 - 성공
     - 설명
-        
-        | 키               | 타입     | 설명     |
-        | --------------- | ------ | ------ |
-        | `status`        | `int`    | 상태 코드  |
-        | `data.id`       | `Long`   | 일정 ID  |
-        | `data.title`    | `String` | 일정 제목  |
-        | `data.username` | `String` | 사용자 이름 |
+
+      | 키               | 타입     | 설명     |
+      | --------------- | ------ | ------ |
+      | `status`        | `int`    | 상태 코드  |
+      | `data.id`       | `Long`   | 일정 ID  |
+      | `data.title`    | `String` | 일정 제목  |
+      | `data.username` | `String` | 사용자 이름 |
 
     - 예시
 
@@ -187,20 +197,21 @@
         }
         ```
 - 실패
-  - 설명
-    
-    | 키         | 타입     | 설명     |
-    | --------- | ------ | ------ |
-    | `status`  | `int`    | 상태 코드  |
-    | `message` | `String` | 에러 메시지 |
-    
-  - 예시
-    ```json
-    {
-      "status": 404,
-      "message": "해당 ID의 일정을 찾을 수 없습니다."
-    }
-    ```
+    - 설명
+
+      | 키         | 타입     | 설명     |
+      | --------- | ------ | ------ |
+      | `status`  | `int`    | 상태 코드  |
+      | `message` | `String` | 에러 메시지 |
+
+    - 예시
+      ```json
+      {
+        "status": 404,
+        "message": "해당 ID의 일정을 찾을 수 없습니다."
+      }
+      ```
+
 </details>
 
 
@@ -283,6 +294,7 @@
         "message": "에러가 발생했습니다."
       }
       ```
+
 </details>
 
 
@@ -349,4 +361,10 @@
         "message": "에러가 발생했습니다."
       }
       ```
+
 </details>
+
+---
+
+### ERD: `schedules`
+![img.png](Lv1ERD.png)
