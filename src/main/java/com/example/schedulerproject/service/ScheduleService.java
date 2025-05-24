@@ -57,8 +57,15 @@ public class ScheduleService {
     public ScheduleResponseDto updateSchedule(Long id, ScheduleRequestDto requestDto) {
         Schedule schedule = scheduleRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 일정이 없습니다. id=" + id));
+
         schedule.update(requestDto.getTitle(), requestDto.getContents());
-        return new ScheduleResponseDto(schedule);
+
+        // 변경 내용 즉시 DB에 반영
+        scheduleRepository.flush();
+
+        // DB에서 다시 조회해서 최신 updatedAt을 가진 객체로 응답 생성
+        Schedule updatedSchedule = scheduleRepository.findById(id).get();
+        return new ScheduleResponseDto(updatedSchedule);
     }
 
     // 일정 삭제

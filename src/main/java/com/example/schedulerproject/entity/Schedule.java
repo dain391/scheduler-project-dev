@@ -43,6 +43,7 @@ public class Schedule {
     private LocalDateTime createdAt;
 
     @LastModifiedDate
+    @Column(updatable = true)
     private LocalDateTime updatedAt;
 
     /*
