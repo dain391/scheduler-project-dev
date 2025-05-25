@@ -5,6 +5,8 @@ import com.example.schedulerproject.schedule.dto.ScheduleResponseDto;
 import com.example.schedulerproject.schedule.entity.Schedule;
 import com.example.schedulerproject.schedule.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,9 +35,11 @@ public class ScheduleController {
 
     // 일정 생성
     @PostMapping
-    public ScheduleResponseDto createSchedule(@RequestBody ScheduleRequestDto requestDto) {
-        Schedule created = scheduleService.createSchedule(requestDto);
-        return new ScheduleResponseDto(created);
+    public ResponseEntity<ScheduleResponseDto> createSchedule(
+            @RequestBody ScheduleRequestDto requestDto
+    ) {
+        Schedule schedule = scheduleService.createdSchedule(requestDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(new ScheduleResponseDto(schedule));
     }
 
     // 일정 수정

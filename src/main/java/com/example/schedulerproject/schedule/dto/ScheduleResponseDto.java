@@ -10,16 +10,16 @@ import java.time.LocalDateTime;
 */
 @Getter
 public class ScheduleResponseDto {
-    private Long id;
-    private String username;
-    private String title;
-    private String contents;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private final Long id;
+    private final String username;
+    private final String title;
+    private final String contents;
+    private final LocalDateTime createdAt;
+    private final LocalDateTime updatedAt;
 
     public ScheduleResponseDto(Schedule schedule) {
         this.id = schedule.getId();
-        this.username = schedule.getUsername();
+        this.username = schedule.getUser().getName();
         this.title = schedule.getTitle();
         this.contents = schedule.getContents();
         this.createdAt = schedule.getCreatedAt();

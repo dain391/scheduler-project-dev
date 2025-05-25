@@ -1,10 +1,8 @@
 package com.example.schedulerproject.schedule.entity;
 
+import com.example.schedulerproject.user.entity.User;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -20,6 +18,7 @@ import java.time.LocalDateTime;
 @Table(name = "schedules")
 @EntityListeners(AuditingEntityListener.class) // createdAt, updatedAt 자동 기록
 @Getter // getter 메서드 자동 생성
+@Setter
 @NoArgsConstructor // 파라미터 없는 기본 생성자 자동 생성
 @AllArgsConstructor // 모든 필드를 받는 생성자 자동 생성
 @Builder // 객체를 편리하게 생성하도록 빌더 패턴 적용
@@ -28,9 +27,6 @@ public class Schedule {
     @Id // 기본 키 지정
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(length = 20)
-    private String username;
 
     @Column(nullable = false, length = 20)
     private String title;
@@ -54,4 +50,9 @@ public class Schedule {
         this.title = title;
         this.contents = contents;
     }
+
+    // User 엔티티와 연관관계
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 }

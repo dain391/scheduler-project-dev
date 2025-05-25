@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class ScheduleRequestDto {
-    private String username;
+    private Long userId;
     private String title;
     private String contents;
 }

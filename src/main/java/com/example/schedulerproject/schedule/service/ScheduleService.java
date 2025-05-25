@@ -4,6 +4,8 @@ import com.example.schedulerproject.schedule.dto.ScheduleRequestDto;
 import com.example.schedulerproject.schedule.dto.ScheduleResponseDto;
 import com.example.schedulerproject.schedule.entity.Schedule;
 import com.example.schedulerproject.schedule.repository.ScheduleRepository;
+import com.example.schedulerproject.user.entity.User;
+import com.example.schedulerproject.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,10 +19,12 @@ import java.util.List;
 public class ScheduleService {
 
     private final ScheduleRepository scheduleRepository;
+    private final UserRepository userRepository;
 
     // 롬복 @RequiredArgsConstructor 대체 생성자 주입
-    public ScheduleService(ScheduleRepository scheduleRepository) {
+    public ScheduleService(ScheduleRepository scheduleRepository, UserRepository userRepository) {
         this.scheduleRepository = scheduleRepository;
+        this.userRepository = userRepository;
     }
 
     // 전체 일정 조회
@@ -42,12 +46,15 @@ public class ScheduleService {
 
     // 일정 생성
     @Transactional // 쓰기 작업(생성, 수정, 삭제)은 @Transactional을 붙여 변경 감지 + DB 반영 보장
-    public Schedule createSchedule(ScheduleRequestDto requestDto) {
-        Schedule schedule = Schedule.builder()
-                .username(requestDto.getUsername())
-                .title(requestDto.getTitle())
-                .contents(requestDto.getContents())
-                .build();
+    public Schedule createdSchedule(ScheduleRequestDto dto) {
+        User user = userRepository.findById(dto.getUserId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        Schedule schedule = new Schedule();
+        schedule.setUser(user);
+        schedule.setTitle(dto.getTitle());
+        schedule.setContents(dto.getContents());
+
         return scheduleRepository.save(schedule);
     }
 
