@@ -7,10 +7,13 @@ import com.example.schedulerproject.user.dto.UserUpdateRequestDto;
 import com.example.schedulerproject.user.entity.User;
 import com.example.schedulerproject.user.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -29,7 +32,17 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody @Valid LoginRequestDto dto, HttpServletRequest request) {
         userService.login(dto, request);
-        return ResponseEntity.ok("로그인 되었습니다.");
+        return ResponseEntity.ok("로그인되었습니다.");
+    }
+
+    // 로그아웃
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        return ResponseEntity.ok("로그아웃되었습니다.");
     }
 
     // 전체 유저 조회

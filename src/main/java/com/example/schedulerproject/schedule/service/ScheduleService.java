@@ -6,6 +6,8 @@ import com.example.schedulerproject.schedule.entity.Schedule;
 import com.example.schedulerproject.schedule.repository.ScheduleRepository;
 import com.example.schedulerproject.user.entity.User;
 import com.example.schedulerproject.user.repository.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,12 +48,16 @@ public class ScheduleService {
 
     // 일정 생성
     @Transactional // 쓰기 작업(생성, 수정, 삭제)은 @Transactional을 붙여 변경 감지 + DB 반영 보장
-    public Schedule createdSchedule(ScheduleRequestDto dto) {
-        User user = userRepository.findById(dto.getUserId())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+    public Schedule createdSchedule(ScheduleRequestDto dto, HttpSession session) {
+        // 세션에서 로그인한 사용자 정보 꺼내기
+        User loginUser = (User) session.getAttribute("user");
+        if (loginUser == null) {
+            throw new IllegalArgumentException("로그인이 필요합니다.");
+        }
 
+        // 세션의 사용자 정보로 일정 생성
         Schedule schedule = new Schedule();
-        schedule.setUser(user);
+        schedule.setUser(loginUser);
         schedule.setTitle(dto.getTitle());
         schedule.setContents(dto.getContents());
 

@@ -32,7 +32,7 @@ public class UserService {
         }
 
         HttpSession session = request.getSession();
-        session.setAttribute("userId", user.getId());
+        session.setAttribute("user", user);
     }
 
     // 전체 유저 조회
