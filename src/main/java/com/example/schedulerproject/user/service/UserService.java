@@ -1,9 +1,12 @@
 package com.example.schedulerproject.user.service;
 
+import com.example.schedulerproject.user.dto.LoginRequestDto;
 import com.example.schedulerproject.user.dto.UserCreateRequestDto;
 import com.example.schedulerproject.user.dto.UserUpdateRequestDto;
 import com.example.schedulerproject.user.entity.User;
 import com.example.schedulerproject.user.repository.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +21,19 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+
+    // 로그인
+    public void login(LoginRequestDto dto, HttpServletRequest request) {
+        User user = userRepository.findByEmail(dto.getEmail())
+                .orElseThrow(() -> new IllegalArgumentException("이메일 또는 비밀번호가 일치하지 않습니다."));
+
+        if (!user.getPassword().equals(dto.getPassword())) {
+            throw new IllegalArgumentException("이메일 또는 비밀번호가 일지하지 않습니다.");
+        }
+
+        HttpSession session = request.getSession();
+        session.setAttribute("userId", user.getId());
+    }
 
     // 전체 유저 조회
     public List<User> getAllUsers() {

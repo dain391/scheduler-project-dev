@@ -1,10 +1,12 @@
 package com.example.schedulerproject.user.controller;
 
+import com.example.schedulerproject.user.dto.LoginRequestDto;
 import com.example.schedulerproject.user.dto.UserCreateRequestDto;
 import com.example.schedulerproject.user.dto.UserResponseDto;
 import com.example.schedulerproject.user.dto.UserUpdateRequestDto;
 import com.example.schedulerproject.user.entity.User;
 import com.example.schedulerproject.user.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,13 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+
+    // 로그인
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody @Valid LoginRequestDto dto, HttpServletRequest request) {
+        userService.login(dto, request);
+        return ResponseEntity.ok("로그인 되었습니다.");
+    }
 
     // 전체 유저 조회
     @GetMapping
