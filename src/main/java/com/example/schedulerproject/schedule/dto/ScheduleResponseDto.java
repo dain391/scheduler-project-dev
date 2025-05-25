@@ -1,6 +1,6 @@
-package com.example.schedulerproject.dto;
+package com.example.schedulerproject.schedule.dto;
 
-import com.example.schedulerproject.entity.Schedule;
+import com.example.schedulerproject.schedule.entity.Schedule;
 import lombok.Getter;
 
 import java.time.LocalDateTime;

@@ -1,4 +1,4 @@
-package com.example.schedulerproject.entity;
+package com.example.schedulerproject.schedule.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -43,6 +43,7 @@ public class Schedule {
     private LocalDateTime createdAt;
 
     @LastModifiedDate
+    @Column(updatable = true)
     private LocalDateTime updatedAt;
 
     /*

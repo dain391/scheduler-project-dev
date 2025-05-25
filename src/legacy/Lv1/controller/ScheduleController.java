@@ -1,12 +1,10 @@
-package com.example.schedulerproject.controller;
+package com.example.schedulerproject.schedule.controller;
 
-import com.example.schedulerproject.dto.ScheduleRequestDto;
-import com.example.schedulerproject.dto.ScheduleResponseDto;
-import com.example.schedulerproject.entity.Schedule;
-import com.example.schedulerproject.service.ScheduleService;
+import com.example.schedulerproject.schedule.dto.ScheduleRequestDto;
+import com.example.schedulerproject.schedule.dto.ScheduleResponseDto;
+import com.example.schedulerproject.schedule.entity.Schedule;
+import com.example.schedulerproject.schedule.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,13 +19,6 @@ public class ScheduleController {
 
     private final ScheduleService scheduleService;
 
-    // 일정 생성
-    @PostMapping
-    public ScheduleResponseDto createSchedule(@RequestBody ScheduleRequestDto requestDto) {
-        Schedule created = scheduleService.createSchedule(requestDto);
-        return new ScheduleResponseDto(created);
-    }
-
     // 전체 일정 조회
     @GetMapping
     public List<ScheduleResponseDto> getAllSchedules() {
@@ -38,6 +29,13 @@ public class ScheduleController {
     @GetMapping("/{id}")
     public ScheduleResponseDto getSchedule(@PathVariable Long id) {
         return scheduleService.getSchedule(id);
+    }
+
+    // 일정 생성
+    @PostMapping
+    public ScheduleResponseDto createSchedule(@RequestBody ScheduleRequestDto requestDto) {
+        Schedule created = scheduleService.createSchedule(requestDto);
+        return new ScheduleResponseDto(created);
     }
 
     // 일정 수정

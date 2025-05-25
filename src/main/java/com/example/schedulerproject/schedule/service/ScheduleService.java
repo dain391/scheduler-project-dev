@@ -1,14 +1,13 @@
-package com.example.schedulerproject.service;
+package com.example.schedulerproject.schedule.service;
 
-import com.example.schedulerproject.dto.ScheduleRequestDto;
-import com.example.schedulerproject.dto.ScheduleResponseDto;
-import com.example.schedulerproject.entity.Schedule;
-import com.example.schedulerproject.repository.ScheduleRepository;
+import com.example.schedulerproject.schedule.dto.ScheduleRequestDto;
+import com.example.schedulerproject.schedule.dto.ScheduleResponseDto;
+import com.example.schedulerproject.schedule.entity.Schedule;
+import com.example.schedulerproject.schedule.repository.ScheduleRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 /*
     일정 생성, 조회 등의 비즈니스 로직을 처리하는 서비스 계층

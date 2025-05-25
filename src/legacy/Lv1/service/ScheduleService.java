@@ -1,14 +1,13 @@
-package com.example.schedulerproject.service;
+package com.example.schedulerproject.schedule.service;
 
-import com.example.schedulerproject.dto.ScheduleRequestDto;
-import com.example.schedulerproject.dto.ScheduleResponseDto;
-import com.example.schedulerproject.entity.Schedule;
-import com.example.schedulerproject.repository.ScheduleRepository;
+import com.example.schedulerproject.schedule.dto.ScheduleRequestDto;
+import com.example.schedulerproject.schedule.dto.ScheduleResponseDto;
+import com.example.schedulerproject.schedule.entity.Schedule;
+import com.example.schedulerproject.schedule.repository.ScheduleRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 /*
     일정 생성, 조회 등의 비즈니스 로직을 처리하는 서비스 계층
@@ -57,8 +56,15 @@ public class ScheduleService {
     public ScheduleResponseDto updateSchedule(Long id, ScheduleRequestDto requestDto) {
         Schedule schedule = scheduleRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 일정이 없습니다. id=" + id));
+
         schedule.update(requestDto.getTitle(), requestDto.getContents());
-        return new ScheduleResponseDto(schedule);
+
+        // 변경 내용 즉시 DB에 반영
+        scheduleRepository.flush();
+
+        // DB에서 다시 조회해서 최신 updatedAt을 가진 객체로 응답 생성
+        Schedule updatedSchedule = scheduleRepository.findById(id).get();
+        return new ScheduleResponseDto(updatedSchedule);
     }
 
     // 일정 삭제
