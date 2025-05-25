@@ -1,4 +1,4 @@
-package com.example.schedulerproject.user.dto;
+package Lv3.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

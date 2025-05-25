@@ -22,6 +22,10 @@ public class UserCreateRequestDto {
     @Size(max = 20, message = "유저명은 최대 20자까지 가능합니다.")
     private String name;
 
+    @NotBlank(message = "비밀번호는 필수 입력값입니다.")
+    @Size(min = 4, max = 20, message = "비밀번호는 4~20자로 가능합니다.")
+    private String password;
+
     @NotBlank(message = "이메일은 필수 입력값입니다.")
     @Email(message = "유효한 이메일 형식이어야 합니다.")
     @Size(max = 50, message = "이메일은 최대 50자까지 가능합니다.")

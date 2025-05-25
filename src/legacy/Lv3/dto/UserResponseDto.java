@@ -1,4 +1,4 @@
-package com.example.schedulerproject.user.dto;
+package Lv3.dto;
 
 import com.example.schedulerproject.user.entity.User;
 import lombok.AllArgsConstructor;

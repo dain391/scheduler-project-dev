@@ -1,4 +1,4 @@
-package com.example.schedulerproject.user.service;
+package Lv3.service;
 
 import com.example.schedulerproject.user.dto.UserCreateRequestDto;
 import com.example.schedulerproject.user.dto.UserUpdateRequestDto;
