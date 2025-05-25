@@ -1,7 +1,7 @@
 # SchedulerProject-dev
 
 <details>
-<summary>Lv1. Schedule API & ERD</summary>
+<summary>Lv1. Schedule</summary>
 
 ## ⬥ API: 일정 CRUD
 
@@ -376,8 +376,8 @@
 
 </details>
 
-
-## Lv2. User API & ERD
+<details>
+<summary>Lv2. User</summary>
 
 ### ⬥ API: 유저 CRUD
 
@@ -695,3 +695,173 @@
 
 ## ⬥ ERD: `users`
 ![img.png](Lv2ERD.png)
+
+</details>
+
+<details>
+  <summary>Lv3. Authentication(인증)</summary>
+
+## ⬥ API: 회원가입
+
+| 기능   | Method | URL           |
+| ---- | ------ | ------------- |
+| 회원가입 | `POST` | /users/signup |
+
+  <details>
+    <summary>회원가입 API</summary>
+
+#### [개요]
+- **URL**: `/users/signup`
+- **HTTP METHOD**: `POST`
+- **설명**: 새로운 사용자를 등록하는 API입니다.
+
+#### [요청]
+- `Headers`: 없음
+- `Param`: 없음
+- `Body`:
+
+  | 키         | 데이터 타입   | 설명       | 필수값 |
+  | ---------- | -------- | -------- | --- |
+  | `username` | `String` | 사용자 이름   | Y   |
+  | `password` | `String` | 사용자 비밀번호 | Y   |
+
+- 예시
+  ```json
+  {
+    "username": "dilee",
+    "password": "1234"
+  }
+  ```
+
+#### [응답]
+- 성공
+  - 설명
+  
+    | 키       | 타입     | 설명          |
+    |----------|----------|---------------|
+    | `status` | `int`    | 상태 코드     |
+    | `message`| `String` | 성공 메시지   |
+
+  - 예시
+      ```json
+      {
+        "status": 200,
+        "message": "회원가입이 완료되었습니다."
+      }
+      ```
+- 실패
+  - 설명
+
+    | 키       | 타입     | 설명          |
+    |----------|----------|---------------|
+    | `status` | `int`    | 상태 코드     |
+    | `message`| `String` | 성공 메시지   |
+  
+  - 예시
+    ```json
+    {
+      "status": 400,
+      "message": "필수값이 누락되었습니다."
+    }
+    ```
+  </details>
+## ⬥ ERD: `users`
+![img.png](Lv3,4ERD.png)
+</details>
+
+<details>
+  <summary>Lv4. Authorization(인가)</summary>
+
+  ## ⬥ API: 로그인 & 로그아웃
+| 기능   | Method | URL     |
+| ---- | ------ | ------- |
+| 로그인  | `POST` | /login  |
+| 로그아웃 | `POST` | /logout |
+
+<details>
+  <summary>로그인 API</summary>
+
+  #### [개요]
+  - **URL**: `/login`
+  - **HTTP METHOD**: `POST`
+  - **설명**: 이메일과 비밀번호를 이용해 로그인합니다. 성공 시 세션에 사용자 정보를 저장합니다.
+
+  #### [요청]
+  - `Headers`: 없음
+  - `Body`:
+
+    | 키          | 타입     | 설명      | 필수 |
+    | ---------- | ------ | ------- | -- |
+    | `email`    | String | 로그인 이메일 | Y  |
+    | `password` | String | 비밀번호    | Y  |
+
+  - 예시
+      ```json
+      {
+         "email": "test@example.com",
+         "password": "1234"
+      }
+      ```
+
+#### [응답]
+- 성공
+    - 상태코드: `200 OK`
+
+    - 예시
+        ```json
+        {
+          "status": 200,
+          "message": "로그인되었습니다."
+        }
+        ```
+- 실패
+    - 상태코드: `401 Unauthorized`
+
+    - 예시
+      ```json
+      {
+        "status": 401,
+        "message": "이메일 또는 비밀번호가 일치하지 않습니다."
+      }
+      ```
+</details>
+
+<details>
+  <summary>로그아웃 API</summary>
+
+#### [개요]
+- **URL**: `/logout`
+- **HTTP METHOD**: `POST`
+- **설명**: 세션을 종료하여 로그아웃하는 API입니다.
+
+#### [요청]
+- `Headers`: Cookie 또는 세션 ID
+- `Body`: 없음
+
+#### [응답]
+- 성공
+    - 상태코드: `200 OK`
+
+    - 예시
+        ```json
+        {
+          "status": 200,
+          "message": "로그아웃되었습니다."
+        }
+        ```
+- 실패
+    - 상태코드: `400 Unauthorized`
+
+    - 예시
+      ```json
+      {
+        "status": 400,
+        "message": "이미 로그아웃된 상태입니다."
+      }
+      ```
+
+## ⬥ ERD: `users`
+![img.png](Lv3,4ERD.png)
+</details>
+
+</details>
