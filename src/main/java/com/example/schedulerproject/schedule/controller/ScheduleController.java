@@ -1,9 +1,9 @@
-package com.example.schedulerproject.controller;
+package com.example.schedulerproject.schedule.controller;
 
-import com.example.schedulerproject.dto.ScheduleRequestDto;
-import com.example.schedulerproject.dto.ScheduleResponseDto;
-import com.example.schedulerproject.entity.Schedule;
-import com.example.schedulerproject.service.ScheduleService;
+import com.example.schedulerproject.schedule.dto.ScheduleRequestDto;
+import com.example.schedulerproject.schedule.dto.ScheduleResponseDto;
+import com.example.schedulerproject.schedule.entity.Schedule;
+import com.example.schedulerproject.schedule.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

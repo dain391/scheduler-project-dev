@@ -1,4 +1,4 @@
-package com.example.schedulerproject.entity;
+package com.example.schedulerproject.schedule.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

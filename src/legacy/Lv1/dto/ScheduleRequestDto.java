@@ -1,4 +1,4 @@
-package com.example.schedulerproject.dto;
+package com.example.schedulerproject.schedule.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
